@@ -39,5 +39,6 @@ not implemented.
 | SEC-18 | Not at all | Attendee records, event-end retention tracking, and 90-day personal-data removal are not implemented. |
 | SEC-19 | Not at all | Attendee lists, CSV exports, officer authorization, and export logging are not implemented. |
 | SEC-20 | Partly | React renders the sample event text as escaped text, but officer-entered event content and its display path are not implemented. |
-| SEC-21 | Not at all | Role changes, refunds, cancellations, Stripe account changes, and exports are not implemented or audit-logged. |
+| SEC-21 | Partly | An append-only in-memory audit log can record the actor, action, target/change description, and time for all five SEC-21 action types; however, this build has no role-change, refund, cancellation, Stripe-account-change, or attendee-export workflows to connect to it, and the records are not durable across restarts or deploys. |
 | SEC-22 | Not at all | There is no audit-log storage, append-only protection, admin-only access, or one-year retention. |
+| SEC-23 | Fully | The checkout name and simulated-receipt email fields limit input to 40 characters in the browser, and the server rejects longer values; there are no other free-text interactive fields in this build. |

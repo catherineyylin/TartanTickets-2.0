@@ -11,6 +11,18 @@ afterEach(() => {
 });
 
 describe("Story 3: buy tickets in the event browser", () => {
+  it("limits the name and receipt email fields to 40 characters", () => {
+    render(<EventCatalog initialEvents={events} />);
+    const fallFest = screen.getByRole("article", { name: /CMU Fall Fest/i });
+    fireEvent.click(within(fallFest).getByRole("button", { name: /buy tickets/i }));
+
+    expect(screen.getByLabelText("Your name")).toHaveAttribute("maxLength", "40");
+    expect(screen.getByLabelText("Email for your simulated receipt")).toHaveAttribute(
+      "maxLength",
+      "40",
+    );
+  });
+
   it("test_story_3_buyer_can_make_a_simulated_purchase_and_view_the_receipt", async () => {
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(

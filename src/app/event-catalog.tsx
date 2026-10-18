@@ -278,7 +278,7 @@ export default function EventCatalog({ initialEvents }: EventCatalogProps) {
                     Your name
                     <input
                       autoComplete="name"
-                      maxLength={100}
+                      maxLength={40}
                       required
                       value={buyerName}
                       onChange={(changeEvent) => setBuyerName(changeEvent.target.value)}
@@ -288,7 +288,7 @@ export default function EventCatalog({ initialEvents }: EventCatalogProps) {
                     Email for your simulated receipt
                     <input
                       autoComplete="email"
-                      maxLength={254}
+                      maxLength={40}
                       required
                       type="email"
                       value={buyerEmail}

@@ -33,6 +33,26 @@ beforeEach(() => {
 });
 
 describe("Story 3: buy tickets", () => {
+  it("rejects checkout names and emails longer than 40 characters", () => {
+    const store = createStore();
+
+    expect(store.createCheckout({
+      ...buyer(),
+      buyerName: "A".repeat(40),
+      buyerEmail: `${"a".repeat(28)}@example.edu`,
+    }).status).toBe("reserved");
+
+    expect(store.createCheckout({
+      ...buyer(),
+      buyerName: "A".repeat(41),
+    })).toEqual({ status: "invalid", reason: "invalid_buyer" });
+
+    expect(store.createCheckout({
+      ...buyer(),
+      buyerEmail: `${"a".repeat(29)}@example.edu`,
+    })).toEqual({ status: "invalid", reason: "invalid_buyer" });
+  });
+
   it("test_story_3_ticket_limit_caps_orders_at_four_seats", () => {
     const store = createStore();
 

@@ -108,8 +108,8 @@ export function createTicketStore(events: TicketEvent[], now: () => number = Dat
     const buyerEmail = request.buyerEmail.trim();
     if (
       buyerName.length < 1 ||
-      buyerName.length > 100 ||
-      buyerEmail.length > 254 ||
+      buyerName.length > 40 ||
+      buyerEmail.length > 40 ||
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail)
     ) {
       return { status: "invalid", reason: "invalid_buyer" };

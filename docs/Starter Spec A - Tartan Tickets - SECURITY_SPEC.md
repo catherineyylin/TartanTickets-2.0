@@ -36,6 +36,7 @@ All requirements use EARS syntax. Assumption IDs (A1–A12) refer to the list in
 - **SEC-18** When 90 days have passed since an event ended, the system shall remove attendee names and emails from that event's records. (A8)
 - **SEC-19** The system shall allow attendee list exports only for officers of the hosting club, limited to name, email, and check-in status, and shall log every export.
 - **SEC-20** The system shall display all officer-entered text (event names, descriptions) as plain text so that it cannot run as code in another user's browser.
+- **SEC-23** The system should have a character limit in any interactive fields set to 40
 
 ## Audit logging
 
