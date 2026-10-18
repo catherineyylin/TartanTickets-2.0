@@ -1,27 +1,10 @@
-import { getUpcomingEvents } from "../lib/events";
+import EventCatalog from "./event-catalog";
+import { getTicketStore } from "../lib/tickets";
 
 export const dynamic = "force-dynamic";
 
-const eventDateFormatter = new Intl.DateTimeFormat("en-US", {
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-  timeZone: "America/New_York",
-});
-
-const eventTimeFormatter = new Intl.DateTimeFormat("en-US", {
-  hour: "numeric",
-  minute: "2-digit",
-  timeZone: "America/New_York",
-});
-
-const priceFormatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-});
-
 export default function EventsPage() {
-  const events = getUpcomingEvents();
+  const events = getTicketStore().getEvents();
 
   return (
     <main className="page-shell">
@@ -78,66 +61,7 @@ export default function EventsPage() {
         </div>
 
         {events.length > 0 ? (
-          <div className="event-grid">
-            {events.map((event, index) => {
-              const titleId = `event-${event.id}`;
-              const soldOut = event.seatsRemaining === 0;
-
-              return (
-                <article
-                  className={`event-card${soldOut ? " event-card-sold-out" : ""}`}
-                  key={event.id}
-                  aria-labelledby={titleId}
-                >
-                  <div className={`event-art event-art-${index % 3}`} aria-hidden="true">
-                    <span className="event-art-shape" />
-                    <span className="event-art-symbol">
-                      {event.artSymbol}
-                    </span>
-                    <span className="event-category">{event.category}</span>
-                  </div>
-                  <div className="event-content">
-                    <h3 id={titleId}>{event.title}</h3>
-                    <p className="event-date">
-                      {eventDateFormatter.format(event.startsAt)}
-                      <span aria-hidden="true"> · </span>
-                      {eventTimeFormatter.format(event.startsAt)}
-                    </p>
-                    <p className="event-location">
-                      <svg aria-hidden="true" viewBox="0 0 20 20">
-                        <path d="M10 18s6-5.4 6-10a6 6 0 1 0-12 0c0 4.6 6 10 6 10Z" />
-                        <circle cx="10" cy="8" r="2" />
-                      </svg>
-                      {event.location}
-                    </p>
-                    <div className="event-details">
-                      <span className="event-price">
-                        {event.priceCents === 0
-                          ? "Free"
-                          : priceFormatter.format(event.priceCents / 100)}
-                      </span>
-                      {soldOut ? (
-                        <span className="seats-remaining sold-out-label">Sold out</span>
-                      ) : (
-                        <span className="seats-remaining">
-                          {event.seatsRemaining} seats remaining
-                        </span>
-                      )}
-                    </div>
-                    {soldOut ? (
-                      <button className="waitlist-button" type="button" disabled>
-                        Join waitlist
-                      </button>
-                    ) : (
-                      <p className="availability-note">
-                        <span aria-hidden="true">✦</span> Seats are waiting for you
-                      </p>
-                    )}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+          <EventCatalog initialEvents={events} />
         ) : (
           <div className="empty-state">
             <span aria-hidden="true">✳</span>
